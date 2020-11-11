@@ -22,7 +22,7 @@ class Market
 
   def vendors_that_sell(item)
     vendors.select do |vendor|
-      vendor.check_stock(item) > 0
+      vendor.in_stock?(item)
     end
   end
 
@@ -71,7 +71,7 @@ class Market
 
   def trickle_sell(item, qty_to_sell)
     vendors_that_sell(item).each do |vendor|
-      until vendor.out_of_stock?(item) || qty_to_sell == 0
+      until vendor.out_of_stock?(item) || qty_to_sell.zero?
         vendor.stock(item, -1)
         qty_to_sell -= 1
       end
