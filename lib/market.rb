@@ -39,9 +39,13 @@ class Market
 
   def overstocked_items
     total_inventory.select do |item, details|
-      item if vendors_that_sell(item).size > 1 &&
-      details[:quantity] > 50
+      item if overstocked?(item)
     end.keys
+  end
+
+  def overstocked?(item)
+    vendors_that_sell(item).size > 1 &&
+    total_inventory[item][:quantity] > 50
   end
 
   def sorted_item_list
