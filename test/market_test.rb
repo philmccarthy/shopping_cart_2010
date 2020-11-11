@@ -143,7 +143,6 @@ class MarketTest < Minitest::Test
   end
 
   def test_it_can_sell_items
-    skip
     market = Market.new("South Pearl Street Farmers Market")
     item1 = Item.new({name: 'Peach', price: "$0.75"})
     item2 = Item.new({name: 'Tomato', price: '$0.50'})
