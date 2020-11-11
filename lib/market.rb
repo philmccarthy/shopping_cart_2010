@@ -50,9 +50,23 @@ class Market
     end.uniq.sort
   end
 
+  def sell(item, qty_to_sell)
+    return false if unsellable?(item, qty_to_sell)
+    trickle_sell(item, qty_to_sell)
+    true
+  end
+
   def unsellable?(item, qty)
     total_inventory[item][:quantity] < qty ||
     vendors_that_sell(item).nil?
   end
 
+  def trickle_sell(item, qty_to_sell)
+    vendors_that_sell(item).each do |vendor|
+      until vendor.check_stock(item) == 0 || qty_to_sell == 0
+        vendor.stock(item, -1)
+        qty_to_sell -= 1
+      end
+    end
+  end
 end
