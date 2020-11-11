@@ -15,6 +15,10 @@ class Vendor
     inventory[item] == 0
   end
 
+  def in_stock?(item)
+    !out_of_stock?(item)
+  end
+
   def stock(item, qty)
     inventory[item] += qty
   end
