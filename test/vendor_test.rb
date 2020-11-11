@@ -43,4 +43,17 @@ class VendorTest < Minitest::Test
     assert_equal 345.00, vendor2.potential_revenue
     assert_equal 48.75, vendor3.potential_revenue
   end
+
+  def test_it_can_check_if_item_is_out_of_stock
+    item1 = Item.new({name: 'Peach', price: "$0.75"})
+    item2 = Item.new({name: 'Tomato', price: '$0.50'})
+    vendor = Vendor.new("Rocky Mountain Fresh")
+    vendor.stock(item1, 30)
+    assert_equal false, vendor.out_of_stock?(item1)
+    assert_equal true, vendor.out_of_stock?(item2)
+    vendor.stock(item2, 1)
+    assert_equal false, vendor.out_of_stock?(item2)
+    vendor.stock(item1, -30)
+    assert_equal true, vendor.out_of_stock?(item1)
+  end
 end
