@@ -49,4 +49,10 @@ class Market
       item.name
     end.uniq.sort
   end
+
+  def unsellable?(item, qty)
+    total_inventory[item][:quantity] < qty ||
+    vendors_that_sell(item).nil?
+  end
+
 end
