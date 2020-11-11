@@ -32,4 +32,11 @@ class Market
     end
     breakout
   end
+
+  def overstocked_items
+    total_inventory.select do |item, details|
+      item if vendors_that_sell(item).size > 1 &&
+      details[:quantity] > 50
+    end.keys
+  end
 end
