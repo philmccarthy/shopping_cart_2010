@@ -45,7 +45,7 @@ class Market
 
   def overstocked?(item)
     vendors_that_sell(item).size > 1 &&
-    total_inventory[item][:quantity] > 50
+    item_inventory(item) > 50
   end
 
   def sorted_item_list
