@@ -56,9 +56,13 @@ class Market
     true
   end
 
-  def unsellable?(item, qty)
-    total_inventory[item][:quantity] < qty ||
+  def unsellable?(item, qty_to_sell)
+    item_inventory(item) < qty_to_sell ||
     vendors_that_sell(item).nil?
+  end
+
+  def item_inventory(item)
+    total_inventory[item][:quantity]
   end
 
   def trickle_sell(item, qty_to_sell)
