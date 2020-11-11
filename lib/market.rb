@@ -21,4 +21,15 @@ class Market
       vendor.check_stock(item) > 0
     end
   end
+
+  def total_inventory
+    breakout = Hash.new { |breakout, item| breakout[item] = {quantity: 0, vendors: nil} }
+    vendors.each do |vendor|
+      vendor.inventory.each do |item, qty|
+        breakout[item][:quantity] += qty
+        breakout[item][:vendors] = vendors_that_sell(item)
+      end
+    end
+    breakout
+  end
 end
