@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 require './lib/market'
 require './lib/vendor'
 require './lib/item'
@@ -134,9 +135,10 @@ class MarketTest < Minitest::Test
     market.add_vendor(vendor3)
     assert_equal ["Banana Nice Cream", "Peach", "Peach-Raspberry Nice Cream", "Tomato"], market.sorted_item_list
   end
+
+  def test_it_has_a_date
+    Date.stubs(:today).returns(Date.parse("20200224"))
+    market = Market.new("South Pearl Street Farmers Market")
+    assert_equal "24/02/2020", market.date
+  end
 end
-
-
-
-
-# assert_equal ["Banana Nice Cream", "Peach", "Peach-Raspberry Nice Cream", "Tomato"], market.sorted_item_list
